@@ -1,9 +1,11 @@
-package com.javernaut.criminalintent;
+package com.javernaut.criminalintent.list;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
+
+import com.javernaut.criminalintent.R;
 
 public class CrimeListActivity extends AppCompatActivity {
 

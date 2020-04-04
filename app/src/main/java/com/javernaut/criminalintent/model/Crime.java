@@ -1,4 +1,4 @@
-package com.javernaut.criminalintent;
+package com.javernaut.criminalintent.model;
 
 import java.util.Date;
 import java.util.UUID;

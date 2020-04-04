@@ -1,4 +1,4 @@
-package com.javernaut.criminalintent;
+package com.javernaut.criminalintent.list;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.javernaut.criminalintent.R;
+import com.javernaut.criminalintent.model.Crime;
 
 import java.util.List;
 
