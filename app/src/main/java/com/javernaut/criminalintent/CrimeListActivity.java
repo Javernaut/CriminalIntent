@@ -1,43 +1,23 @@
 package com.javernaut.criminalintent;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 public class CrimeListActivity extends AppCompatActivity {
-
-    // Model
-    private List<Crime> crimesList = generateDemoCrimes();
-
-    // View
-    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_crime_list);
 
-        recyclerView = findViewById(R.id.recyclerView);
+        FragmentManager fragmentManager = getSupportFragmentManager();
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new CrimeListAdapter(crimesList));
-    }
-
-    private static List<Crime> generateDemoCrimes() {
-        List<Crime> result = new ArrayList<>();
-        Random random = new Random();
-        for (int i = 0; i < 100; i++) {
-            Crime crime = new Crime();
-            crime.setTitle("Crime #" + i);
-            crime.setSolved(i % 2 == 0); // Для каждого второго объекта
-            result.add(crime);
+        if (fragmentManager.findFragmentById(R.id.fragmentContainer) == null) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainer, new CrimeListFragment())
+                    .commit();
         }
-        return result;
     }
 }
