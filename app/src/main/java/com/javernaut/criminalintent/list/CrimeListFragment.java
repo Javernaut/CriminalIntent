@@ -12,15 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.javernaut.criminalintent.R;
-import com.javernaut.criminalintent.model.Crime;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CrimeListFragment extends Fragment {
-
-    // Model
-    private List<Crime> crimesList = generateDemoCrimes();
 
     // View
     private RecyclerView recyclerView;
@@ -45,17 +38,6 @@ public class CrimeListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new CrimeListAdapter(crimesList));
-    }
-
-    private static List<Crime> generateDemoCrimes() {
-        List<Crime> result = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            Crime crime = new Crime();
-            crime.setTitle("Crime #" + i);
-            crime.setSolved(i % 2 == 0); // Для каждого второго объекта
-            result.add(crime);
-        }
-        return result;
+        recyclerView.setAdapter(new CrimeListAdapter(CrimeListActivity.CRIMES_LIST));
     }
 }
