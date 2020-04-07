@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.javernaut.criminalintent.R;
 import com.javernaut.criminalintent.details.CrimeDetailsFragment;
 import com.javernaut.criminalintent.model.Crime;
-import com.javernaut.criminalintent.repository.Repository;
 import com.javernaut.criminalintent.repository.RepositoryProvider;
 
 public class CrimeListFragment extends Fragment {

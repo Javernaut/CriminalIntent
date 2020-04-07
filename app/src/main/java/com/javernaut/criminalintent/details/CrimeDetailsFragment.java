@@ -11,9 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.javernaut.criminalintent.R;
-import com.javernaut.criminalintent.list.CrimeListActivity;
 import com.javernaut.criminalintent.model.Crime;
-import com.javernaut.criminalintent.repository.Repository;
 import com.javernaut.criminalintent.repository.RepositoryProvider;
 
 import java.util.UUID;

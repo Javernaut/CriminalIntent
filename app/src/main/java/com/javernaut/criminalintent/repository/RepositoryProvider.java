@@ -6,7 +6,7 @@ public class RepositoryProvider {
 
     public static Repository getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new Repository();
+            INSTANCE = new InMemoryRepository();
         }
         return INSTANCE;
     }
