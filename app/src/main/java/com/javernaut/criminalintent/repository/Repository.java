@@ -4,6 +4,7 @@ import com.javernaut.criminalintent.model.Crime;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 public class Repository {
@@ -21,10 +22,10 @@ public class Repository {
     }
 
     // Model
-    private final List<Crime> crimeList = generateDemoCrimes();
+    private final List<Crime> crimeList = new ArrayList<>();
 
     public List<Crime> getAllCrimes() {
-        return new ArrayList<>(crimeList);
+        return crimeList;
     }
 
     public Crime getCrimeById(UUID uuid) {
@@ -36,14 +37,11 @@ public class Repository {
         return null;
     }
 
-    private static List<Crime> generateDemoCrimes() {
-        List<Crime> result = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            Crime crime = new Crime();
-            crime.setTitle("Crime #" + i);
-            crime.setSolved(i % 2 == 0); // Для каждого второго объекта
-            result.add(crime);
-        }
-        return result;
+    public void generateRandomCrime() {
+        Random random = new Random();
+        Crime crime = new Crime();
+        crime.setTitle("Crime #" + random.nextInt());
+        crime.setSolved(random.nextBoolean());
+        crimeList.add(crime);
     }
 }
