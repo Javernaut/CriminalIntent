@@ -18,6 +18,7 @@ import com.javernaut.criminalintent.R;
 import com.javernaut.criminalintent.details.CrimeDetailsFragment;
 import com.javernaut.criminalintent.model.Crime;
 import com.javernaut.criminalintent.repository.Repository;
+import com.javernaut.criminalintent.repository.RepositoryProvider;
 
 public class CrimeListFragment extends Fragment {
 
@@ -51,7 +52,7 @@ public class CrimeListFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new CrimeListAdapter(
-                Repository.getInstance().getAllCrimes(), itemEventsListener
+                RepositoryProvider.getInstance().getAllCrimes(), itemEventsListener
         ));
     }
 
@@ -63,7 +64,7 @@ public class CrimeListFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.createNew) {
-            Repository.getInstance().generateRandomCrime();
+            RepositoryProvider.getInstance().generateRandomCrime();
             recyclerView.getAdapter().notifyDataSetChanged();
             return true;
         } else {
@@ -82,7 +83,7 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onLongItemClick(Crime crime) {
-            Repository.getInstance().delete(crime);
+            RepositoryProvider.getInstance().delete(crime);
             recyclerView.getAdapter().notifyDataSetChanged();
         }
     };

@@ -14,6 +14,7 @@ import com.javernaut.criminalintent.R;
 import com.javernaut.criminalintent.list.CrimeListActivity;
 import com.javernaut.criminalintent.model.Crime;
 import com.javernaut.criminalintent.repository.Repository;
+import com.javernaut.criminalintent.repository.RepositoryProvider;
 
 import java.util.UUID;
 
@@ -38,7 +39,7 @@ public class CrimeDetailsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
         UUID id = (UUID) arguments.getSerializable(KEY_ID);
-        this.crime = Repository.getInstance().getCrimeById(id);
+        this.crime = RepositoryProvider.getInstance().getCrimeById(id);
     }
 
     @Override

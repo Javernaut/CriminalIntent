@@ -9,20 +9,10 @@ import java.util.UUID;
 
 public class Repository {
 
-    private static Repository INSTANCE;
-
-    public static Repository getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new Repository();
-        }
-        return INSTANCE;
-    }
-
-    private Repository() {
-    }
-
-    // Model
     private final List<Crime> crimeList = new ArrayList<>();
+
+    Repository() {
+    }
 
     public List<Crime> getAllCrimes() {
         return crimeList;
