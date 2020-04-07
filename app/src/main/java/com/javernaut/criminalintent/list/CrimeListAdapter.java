@@ -15,9 +15,11 @@ import java.util.List;
 public class CrimeListAdapter extends RecyclerView.Adapter<CrimeViewHolder> {
 
     private final List<Crime> crimesList;
+    private final ItemEventsListener listener;
 
-    public CrimeListAdapter(List<Crime> crimesList) {
+    public CrimeListAdapter(List<Crime> crimesList, ItemEventsListener listener) {
         this.crimesList = crimesList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -25,7 +27,7 @@ public class CrimeListAdapter extends RecyclerView.Adapter<CrimeViewHolder> {
     public CrimeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View itemView = inflater.inflate(R.layout.item_crime, parent, false);
-        return new CrimeViewHolder(itemView);
+        return new CrimeViewHolder(itemView, listener);
     }
 
     @Override
@@ -36,5 +38,9 @@ public class CrimeListAdapter extends RecyclerView.Adapter<CrimeViewHolder> {
     @Override
     public int getItemCount() {
         return crimesList.size();
+    }
+
+    interface ItemEventsListener {
+        void onItemClick(Crime crime);
     }
 }

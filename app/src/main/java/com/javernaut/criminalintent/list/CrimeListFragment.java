@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.javernaut.criminalintent.R;
+import com.javernaut.criminalintent.details.CrimeDetailsFragment;
+import com.javernaut.criminalintent.model.Crime;
 
 public class CrimeListFragment extends Fragment {
 
@@ -38,6 +40,16 @@ public class CrimeListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new CrimeListAdapter(CrimeListActivity.CRIMES_LIST));
+        recyclerView.setAdapter(new CrimeListAdapter(CrimeListActivity.CRIMES_LIST, itemEventsListener));
     }
+
+    private final CrimeListAdapter.ItemEventsListener itemEventsListener = new CrimeListAdapter.ItemEventsListener() {
+        @Override
+        public void onItemClick(Crime crime) {
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, CrimeDetailsFragment.makeInstance(crime.getId()))
+                    .addToBackStack(null)
+                    .commit();
+        }
+    };
 }

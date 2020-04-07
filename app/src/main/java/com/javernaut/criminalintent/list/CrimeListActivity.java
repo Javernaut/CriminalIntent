@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentManager;
 import android.os.Bundle;
 
 import com.javernaut.criminalintent.R;
-import com.javernaut.criminalintent.details.CrimeDetailsFragment;
 import com.javernaut.criminalintent.model.Crime;
 
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ public class CrimeListActivity extends AppCompatActivity {
 
         if (fragmentManager.findFragmentById(R.id.fragmentContainer) == null) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainer, CrimeDetailsFragment.makeInstance(CRIMES_LIST.get(1).getId()))
+                    .replace(R.id.fragmentContainer, new CrimeListFragment())
                     .commit();
         }
     }
