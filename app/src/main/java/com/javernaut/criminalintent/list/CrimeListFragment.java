@@ -51,7 +51,7 @@ public class CrimeListFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new CrimeListAdapter(
-                RepositoryProvider.getInstance().getAllCrimes(), itemEventsListener
+                RepositoryProvider.getInstance(getContext()).getAllCrimes(), itemEventsListener
         ));
     }
 
@@ -63,7 +63,7 @@ public class CrimeListFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.createNew) {
-            RepositoryProvider.getInstance().generateRandomCrime();
+            RepositoryProvider.getInstance(getContext()).generateRandomCrime();
             recyclerView.getAdapter().notifyDataSetChanged();
             return true;
         } else {
@@ -82,7 +82,7 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onLongItemClick(Crime crime) {
-            RepositoryProvider.getInstance().delete(crime);
+            RepositoryProvider.getInstance(getContext()).delete(crime);
             recyclerView.getAdapter().notifyDataSetChanged();
         }
     };

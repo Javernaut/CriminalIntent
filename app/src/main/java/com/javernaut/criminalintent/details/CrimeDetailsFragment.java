@@ -37,7 +37,8 @@ public class CrimeDetailsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
         UUID id = (UUID) arguments.getSerializable(KEY_ID);
-        this.crime = RepositoryProvider.getInstance().getCrimeById(id);
+
+        this.crime = RepositoryProvider.getInstance(getContext()).getCrimeById(id);
     }
 
     @Override
