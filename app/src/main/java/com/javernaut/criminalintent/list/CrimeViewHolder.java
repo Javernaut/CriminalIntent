@@ -31,12 +31,21 @@ class CrimeViewHolder extends RecyclerView.ViewHolder {
         solvedView = itemView.findViewById(R.id.solved);
 
         itemView.setOnClickListener(itemClickListener);
+        itemView.setOnLongClickListener(itemLongClickListener);
     }
 
     private final View.OnClickListener itemClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             listener.onItemClick(currentCrime);
+        }
+    };
+
+    private final View.OnLongClickListener itemLongClickListener = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            listener.onLongItemClick(currentCrime);
+            return true;
         }
     };
 

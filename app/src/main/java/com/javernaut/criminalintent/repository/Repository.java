@@ -44,4 +44,8 @@ public class Repository {
         crime.setSolved(random.nextBoolean());
         crimeList.add(crime);
     }
+
+    public void delete(Crime crime) {
+        crimeList.remove(crime);
+    }
 }
