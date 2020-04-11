@@ -14,13 +14,18 @@ import java.util.List;
 
 public class CrimeListAdapter extends RecyclerView.Adapter<CrimeViewHolder> {
 
-    private final List<Crime> crimesList;
+    private List<Crime> crimesList;
     private final ItemEventsListener listener;
 
     public CrimeListAdapter(List<Crime> crimesList, ItemEventsListener listener) {
         this.crimesList = crimesList;
         this.listener = listener;
         setHasStableIds(true);
+    }
+
+    void setNewCrimes(List<Crime> newCrimes) {
+        this.crimesList = newCrimes;
+        notifyDataSetChanged();
     }
 
     @Override

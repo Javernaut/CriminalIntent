@@ -17,17 +17,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.javernaut.criminalintent.R;
 import com.javernaut.criminalintent.details.CrimeDetailsFragment;
 import com.javernaut.criminalintent.model.Crime;
+import com.javernaut.criminalintent.repository.Repository;
 import com.javernaut.criminalintent.repository.RepositoryProvider;
 
 public class CrimeListFragment extends Fragment {
 
     // View
     private RecyclerView recyclerView;
+    private CrimeListAdapter crimeListAdapter;
+
+    private Repository repository;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        repository = RepositoryProvider.getInstance(getContext());
     }
 
     @Nullable
@@ -50,9 +56,11 @@ public class CrimeListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new CrimeListAdapter(
+
+        crimeListAdapter = new CrimeListAdapter(
                 RepositoryProvider.getInstance(getContext()).getAllCrimes(), itemEventsListener
-        ));
+        );
+        recyclerView.setAdapter(crimeListAdapter);
     }
 
     @Override
@@ -63,8 +71,8 @@ public class CrimeListFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.createNew) {
-            RepositoryProvider.getInstance(getContext()).generateRandomCrime();
-            recyclerView.getAdapter().notifyDataSetChanged();
+            repository.generateRandomCrime();
+            crimeListAdapter.setNewCrimes(repository.getAllCrimes());
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -82,8 +90,8 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onLongItemClick(Crime crime) {
-            RepositoryProvider.getInstance(getContext()).delete(crime);
-            recyclerView.getAdapter().notifyDataSetChanged();
+            repository.delete(crime);
+            crimeListAdapter.setNewCrimes(repository.getAllCrimes());
         }
     };
 }

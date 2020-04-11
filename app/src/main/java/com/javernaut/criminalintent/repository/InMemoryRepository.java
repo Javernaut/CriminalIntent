@@ -31,15 +31,19 @@ class InMemoryRepository implements Repository {
 
     @Override
     public void generateRandomCrime() {
-        Random random = new Random();
-        Crime crime = new Crime();
-        crime.setTitle("Crime #" + random.nextInt());
-        crime.setSolved(random.nextBoolean());
-        crimeList.add(crime);
+        crimeList.add(getRandomCrime());
     }
 
     @Override
     public void delete(Crime crime) {
         crimeList.remove(crime);
+    }
+
+    public static Crime getRandomCrime() {
+        Random random = new Random();
+        Crime crime = new Crime();
+        crime.setTitle("Crime #" + random.nextInt());
+        crime.setSolved(random.nextBoolean());
+        return crime;
     }
 }
