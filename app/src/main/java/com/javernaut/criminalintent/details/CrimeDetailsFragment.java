@@ -1,9 +1,12 @@
 package com.javernaut.criminalintent.details;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -56,6 +59,36 @@ public class CrimeDetailsFragment extends Fragment {
         titleView.setText(crime.getTitle());
         dateView.setText(crime.getDate().toString());
         solvedView.setChecked(crime.isSolved());
+
+        titleView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                crime.setTitle(s.toString());
+                saveCrime();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        solvedView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                crime.setSolved(isChecked);
+                saveCrime();
+            }
+        });
+    }
+
+    private void saveCrime() {
+        RepositoryProvider.getInstance(getContext()).update(crime);
     }
 
     public static CrimeDetailsFragment makeInstance(UUID id) {
