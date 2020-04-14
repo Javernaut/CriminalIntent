@@ -39,6 +39,9 @@ public class InMemoryRepository implements Repository {
         crimeList.remove(crime);
     }
 
+    @Override
+    public void update(Crime crime) { }
+
     public static Crime getRandomCrime() {
         Random random = new Random();
         Crime crime = new Crime();

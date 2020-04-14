@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface Repository {
+
     List<Crime> getAllCrimes();
 
     Crime getCrimeById(UUID uuid);
@@ -13,4 +14,7 @@ public interface Repository {
     void generateRandomCrime();
 
     void delete(Crime crime);
+
+    void update(Crime crime);
+
 }

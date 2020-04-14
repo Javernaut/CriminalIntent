@@ -76,4 +76,9 @@ class SharedPreferencesRepository implements Repository {
                 .apply();
     }
 
+    @Override
+    public void update(Crime crime) {
+        // TODO implement me
+    }
+
 }

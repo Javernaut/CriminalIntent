@@ -56,4 +56,9 @@ public class RoomRepository implements Repository {
     public void delete(Crime crime) {
         crimesDao.delete(Converter.convert(crime));
     }
+
+    @Override
+    public void update(Crime crime) {
+        crimesDao.update(Converter.convert(crime));
+    }
 }
