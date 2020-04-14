@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-class InMemoryRepository implements Repository {
+public class InMemoryRepository implements Repository {
 
     private final List<Crime> crimeList = new ArrayList<>();
 
