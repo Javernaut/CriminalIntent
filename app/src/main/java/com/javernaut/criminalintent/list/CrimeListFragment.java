@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -79,13 +80,24 @@ public class CrimeListFragment extends Fragment {
         }
     }
 
+    private void showCrime(Crime crime) {
+        boolean twoPanelMode = getResources().getBoolean(R.bool.two_panel_mode);
+        int containerId = twoPanelMode ? R.id.fragmentContainerDetails : R.id.fragmentContainer;
+
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction()
+                .replace(containerId, CrimeDetailsFragment.makeInstance(crime.getId()));
+
+        if (!twoPanelMode) {
+            transaction = transaction.addToBackStack(null);
+        }
+
+        transaction.commit();
+    }
+
     private final CrimeListAdapter.ItemEventsListener itemEventsListener = new CrimeListAdapter.ItemEventsListener() {
         @Override
         public void onItemClick(Crime crime) {
-            getParentFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentContainer, CrimeDetailsFragment.makeInstance(crime.getId()))
-                    .addToBackStack(null)
-                    .commit();
+            showCrime(crime);
         }
 
         @Override
