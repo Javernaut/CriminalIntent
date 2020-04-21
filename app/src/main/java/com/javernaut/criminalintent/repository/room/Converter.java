@@ -19,12 +19,16 @@ public class Converter {
     }
 
     static Crime convert(CrimeEntity crime) {
-        Crime result = new Crime();
+        Crime result = null;
 
-        result.setId(UUID.fromString(crime.id));
-        result.setTitle(crime.title);
-        result.setDate(new Date(crime.date));
-        result.setSolved(crime.solved);
+        if (crime != null) {
+            result = new Crime();
+
+            result.setId(UUID.fromString(crime.id));
+            result.setTitle(crime.title);
+            result.setDate(new Date(crime.date));
+            result.setSolved(crime.solved);
+        }
 
         return result;
     }

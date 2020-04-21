@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.javernaut.criminalintent.R;
 import com.javernaut.criminalintent.model.Crime;
+import com.javernaut.criminalintent.repository.Repository;
 import com.javernaut.criminalintent.repository.RepositoryProvider;
 
 import java.util.UUID;
@@ -24,7 +25,10 @@ public class CrimeDetailsFragment extends Fragment {
     private static final String KEY_ID = "key_id";
 
     // Model
+    private UUID crimeId;
     private Crime crime;
+
+    private Repository repository;
 
     // View
     private EditText titleView;
@@ -39,9 +43,12 @@ public class CrimeDetailsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
-        UUID id = (UUID) arguments.getSerializable(KEY_ID);
 
-        this.crime = RepositoryProvider.getInstance(getContext()).getCrimeById(id);
+        crimeId = (UUID) arguments.getSerializable(KEY_ID);
+
+        repository = RepositoryProvider.getInstance(getContext());
+
+        crime = repository.getCrimeById(crimeId);
     }
 
     @Override
@@ -87,9 +94,32 @@ public class CrimeDetailsFragment extends Fragment {
         });
     }
 
-    private void saveCrime() {
-        RepositoryProvider.getInstance(getContext()).update(crime);
+    @Override
+    public void onResume() {
+        super.onResume();
+        repository.addListener(repositoryListener);
     }
+
+    @Override
+    public void onPause() {
+        repository.removeListener(repositoryListener);
+        super.onPause();
+    }
+
+    private void saveCrime() {
+        repository.update(crime);
+    }
+
+    private final Repository.Listener repositoryListener = new Repository.Listener() {
+        @Override
+        public void onDataChanged() {
+            if (repository.getCrimeById(crimeId) == null) {
+                getParentFragmentManager().beginTransaction()
+                        .remove(CrimeDetailsFragment.this)
+                        .commit();
+            }
+        }
+    };
 
     public static CrimeDetailsFragment makeInstance(UUID id) {
         Bundle args = new Bundle();
