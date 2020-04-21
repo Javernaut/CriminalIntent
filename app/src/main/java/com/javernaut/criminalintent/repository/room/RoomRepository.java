@@ -5,14 +5,14 @@ import android.content.Context;
 import androidx.room.Room;
 
 import com.javernaut.criminalintent.model.Crime;
+import com.javernaut.criminalintent.repository.BaseRepository;
 import com.javernaut.criminalintent.repository.InMemoryRepository;
-import com.javernaut.criminalintent.repository.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class RoomRepository implements Repository {
+public class RoomRepository extends BaseRepository {
 
     private CrimesDao crimesDao;
 
@@ -50,15 +50,21 @@ public class RoomRepository implements Repository {
     public void generateRandomCrime() {
         Crime crime = InMemoryRepository.getRandomCrime();
         crimesDao.add(Converter.convert(crime));
+
+        notifyListeners();
     }
 
     @Override
     public void delete(Crime crime) {
         crimesDao.delete(Converter.convert(crime));
+
+        notifyListeners();
     }
 
     @Override
     public void update(Crime crime) {
         crimesDao.update(Converter.convert(crime));
+
+        notifyListeners();
     }
 }

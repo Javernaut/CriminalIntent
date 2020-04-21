@@ -11,7 +11,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.UUID;
 
-class SharedPreferencesRepository implements Repository {
+class SharedPreferencesRepository extends BaseRepository {
 
     private static final String KEY_CRIMES = "key_crimes";
 
@@ -57,6 +57,8 @@ class SharedPreferencesRepository implements Repository {
         preferences.edit()
                 .putString(KEY_CRIMES, gson.toJson(allCrimes))
                 .apply();
+
+        notifyListeners();
     }
 
     @Override
@@ -74,11 +76,15 @@ class SharedPreferencesRepository implements Repository {
         preferences.edit()
                 .putString(KEY_CRIMES, gson.toJson(allCrimes))
                 .apply();
+
+        notifyListeners();
     }
 
     @Override
     public void update(Crime crime) {
         // TODO implement me
+
+        notifyListeners();
     }
 
 }

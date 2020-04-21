@@ -73,11 +73,22 @@ public class CrimeListFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.createNew) {
             repository.generateRandomCrime();
-            crimeListAdapter.setNewCrimes(repository.getAllCrimes());
             return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        repository.addListener(repositoryListener);
+    }
+
+    @Override
+    public void onPause() {
+        repository.removeListener(repositoryListener);
+        super.onPause();
     }
 
     private void showCrime(Crime crime) {
@@ -94,6 +105,13 @@ public class CrimeListFragment extends Fragment {
         transaction.commit();
     }
 
+    private final Repository.Listener repositoryListener = new Repository.Listener() {
+        @Override
+        public void onDataChanged() {
+            crimeListAdapter.setNewCrimes(repository.getAllCrimes());
+        }
+    };
+
     private final CrimeListAdapter.ItemEventsListener itemEventsListener = new CrimeListAdapter.ItemEventsListener() {
         @Override
         public void onItemClick(Crime crime) {
@@ -103,7 +121,6 @@ public class CrimeListFragment extends Fragment {
         @Override
         public void onLongItemClick(Crime crime) {
             repository.delete(crime);
-            crimeListAdapter.setNewCrimes(repository.getAllCrimes());
         }
     };
 }

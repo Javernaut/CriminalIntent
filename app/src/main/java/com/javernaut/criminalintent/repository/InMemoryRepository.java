@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-public class InMemoryRepository implements Repository {
+public class InMemoryRepository extends BaseRepository {
 
     private final List<Crime> crimeList = new ArrayList<>();
 
@@ -32,15 +32,19 @@ public class InMemoryRepository implements Repository {
     @Override
     public void generateRandomCrime() {
         crimeList.add(getRandomCrime());
+        notifyListeners();
     }
 
     @Override
     public void delete(Crime crime) {
         crimeList.remove(crime);
+        notifyListeners();
     }
 
     @Override
-    public void update(Crime crime) { }
+    public void update(Crime crime) {
+        notifyListeners();
+    }
 
     public static Crime getRandomCrime() {
         Random random = new Random();

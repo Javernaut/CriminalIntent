@@ -17,4 +17,11 @@ public interface Repository {
 
     void update(Crime crime);
 
+    void addListener(Listener listener);
+
+    void removeListener(Listener listener);
+
+    interface Listener {
+        void onDataChanged();
+    }
 }
