@@ -1,5 +1,6 @@
 package com.javernaut.criminalintent.list;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -105,6 +107,11 @@ public class CrimeListFragment extends Fragment {
         transaction.commit();
     }
 
+    private void showDeleteDialog(Crime crime) {
+        DeleteConfirmationDialogFragment.makeInstance(crime)
+                .show(getParentFragmentManager(), null);
+    }
+
     private final Repository.Listener repositoryListener = new Repository.Listener() {
         @Override
         public void onDataChanged() {
@@ -120,7 +127,7 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onLongItemClick(Crime crime) {
-            repository.delete(crime);
+            showDeleteDialog(crime);
         }
     };
 }
